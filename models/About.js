@@ -10,7 +10,7 @@ const About = sequelizeInstance.define("About", {
     defaultValue: Sequelize.UUIDV4,
   },
   about: {
-    type: Sequelize.STRING(255),
+    type: Sequelize.TEXT,
     allowNull: false,
   },
   cv: {
