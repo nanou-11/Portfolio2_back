@@ -6,6 +6,9 @@ const sequelize = require("./sequelize");
 const auth = require("./routes/auth.route");
 const user = require("./routes/user.route");
 const works = require("./routes/works.route");
+const mail = require("./routes/mail.route");
+const about = require("./routes/about.route");
+const User = require("./models/User");
 
 const port = process.env.PORT || 4000;
 
@@ -17,6 +20,8 @@ app.use(cors());
 app.use("/auth", auth);
 app.use("/user", user);
 app.use("/works", works);
+app.use("/sendMail", mail);
+app.use("/about", about);
 
 app.get("/", (req, res) => {
   res.status(200).send("Bienvenue sur Mon Portfolio");
@@ -27,6 +32,20 @@ if (process.env.NODE_ENV !== "test") {
     .sync()
     .then(() => {
       return sequelize.authenticate();
+    })
+    .then(() => {
+      return Promise.all([
+        User.findCreateFind({
+          where: { email: process.env.EMAIL },
+          defaults: {
+            lastName: "Jouaret",
+            firstName: "Anaïs",
+            password: process.env.EMAILPASS,
+            github: "https://github.com/nanou-11",
+            linkedin: "https://www.linkedin.com/in/anais-jouaret/",
+          },
+        }),
+      ]);
     })
     .then(() => {
       app.listen(port, (err) => {

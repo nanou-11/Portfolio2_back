@@ -13,22 +13,10 @@ router.post("/login", async (req, res) => {
         email,
       },
     });
-    const isPasswordValid = user.validPassword(password);
-
-    if (user && isPasswordValid) {
-      const payload = {
-        id: user.dataValues.id,
-        email: user.dataValues.email,
-        firstName: user.datavalues.firstName,
-      };
-
-      const token = jwt.sign(payload, SECRET, {
-        expiresIn: "24h",
-      });
-      delete user.dataValues.password;
-      res.status(200).json({ token, user });
+    if (password === user.dataValues.password) {
+      res.status(200).json(user);
     } else {
-      res.status(422).json({ message: "Wrong credentials", error: err.errors });
+      res.status(400).json({ message: "Wrong credentials" });
     }
   } catch (err) {
     res.status(422).json({ message: "Wrong credentials", error: err.errors });

@@ -37,5 +37,9 @@ const Work = sequelizeInstance.define("Work", {
     type: Sequelize.STRING(255),
     allowNull: false,
   },
+  date: {
+    type: Sequelize.STRING(255),
+    allowNull: false,
+  }
 });
 module.exports = Work;

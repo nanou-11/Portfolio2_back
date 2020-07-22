@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
     screenshot1,
     screenshot2,
     screenshot3,
+    date,
   } = req.body;
   try {
     const project = await Work.create({
@@ -40,6 +41,7 @@ router.post("/", async (req, res) => {
       screenshot1,
       screenshot2,
       screenshot3,
+      date,
     });
     res.status(201).json(project);
   } catch (err) {
@@ -57,10 +59,20 @@ router.put("/:id", async (req, res) => {
     screenshot1,
     screenshot2,
     screenshot3,
+    date,
   } = req.body;
   try {
     await Work.update(
-      { label, url, description, tools, screenshot1, screenshot2, screenshot3 },
+      {
+        label,
+        url,
+        description,
+        tools,
+        screenshot1,
+        screenshot2,
+        screenshot3,
+        date,
+      },
       { where: { id } }
     );
     const project = await Work.findByPk(id);

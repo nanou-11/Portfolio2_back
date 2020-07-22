@@ -30,8 +30,6 @@ router.put("/:id", async (req, res) => {
     password,
     github,
     linkedin,
-    about,
-    cv,
   } = req.body;
   try {
     await User.update(
@@ -42,8 +40,6 @@ router.put("/:id", async (req, res) => {
         password,
         github,
         linkedin,
-        about,
-        cv,
       },
       { where: { id } }
     );
