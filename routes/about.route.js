@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const About = require("../models/About");
+const { validator, aboutForPut } = require("../middleware/validator");
+
 
 router.get("/", async (req, res) => {
   try {
@@ -22,11 +24,12 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { about, cv } = req.body;
+  const { about, cv, UserId } = req.body;
   try {
     const aboutt = await About.create({
       about,
       cv,
+      UserId,
     });
     res.status(201).json(aboutt);
   } catch (err) {
@@ -34,7 +37,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", validator(aboutForPut, "body"),async (req, res) => {
   const { id } = req.params;
   const { about, cv } = req.body;
   try {

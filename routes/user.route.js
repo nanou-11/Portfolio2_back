@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const { validator, userForPut } = require("../middleware/validator");
+
 
 router.get("/", async (req, res) => {
   try {
@@ -21,7 +23,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id",validator(userForPut, "body"), async (req, res) => {
   const { id } = req.params;
   const {
     lastName,
