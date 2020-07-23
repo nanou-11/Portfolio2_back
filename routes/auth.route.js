@@ -23,28 +23,28 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/register", async (req, res) => {
-  const {
-    lastName,
-    firstName,
-    password,
-    email,
-    github,
-    linkedin,
-  } = req.body;
-  try {
-    const register = await User.create({
-      lastName,
-      firstName,
-      password,
-      email,
-      github,
-      linkedin,
-    });
-    res.status(201).json(register);
-  } catch (err) {
-    res.status(422).json({ message: "Wrong credentials", error: err.errors });
-  }
-});
+// router.post("/register", async (req, res) => {
+//   const {
+//     lastName,
+//     firstName,
+//     password,
+//     email,
+//     github,
+//     linkedin,
+//   } = req.body;
+//   try {
+//     const register = await User.create({
+//       lastName,
+//       firstName,
+//       password,
+//       email,
+//       github,
+//       linkedin,
+//     });
+//     res.status(201).json(register);
+//   } catch (err) {
+//     res.status(422).json({ message: "Wrong credentials", error: err.errors });
+//   }
+// });
 
 module.exports = router;
