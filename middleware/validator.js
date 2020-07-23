@@ -15,6 +15,18 @@ const aboutForPut = Joi.object({
   UserId: Joi.string(),
 });
 
+const worksForPut = Joi.object({
+  label: Joi.string(),
+  url: Joi.string(),
+  description: Joi.string(),
+  tools: Joi.string(),
+  screenshot1: Joi.string(),
+  screenshot2: Joi.string(),
+  screenshot3: Joi.string(),
+  date: Joi.string(),
+  UserId: Joi.string(),
+});
+
 const validator = (schema, propToValidate) => async (req, res, next) => {
   try {
     await schema.validateAsync(req[propToValidate], { abortEarly: false });
@@ -36,4 +48,5 @@ module.exports = {
   validator,
   userForPut,
   aboutForPut,
+  worksForPut
 };

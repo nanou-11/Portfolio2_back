@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Work = require("../models/Work");
+const { validator, worksForPut } = require("../middleware/validator");
+
 
 router.get("/", async (req, res) => {
   try {
@@ -51,7 +53,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id",validator(worksForPut, "body"), async (req, res) => {
   const { id } = req.params;
   const {
     label,
