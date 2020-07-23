@@ -31,8 +31,6 @@ router.post("/register", async (req, res) => {
     email,
     github,
     linkedin,
-    about,
-    cv,
   } = req.body;
   try {
     const register = await User.create({
@@ -42,8 +40,6 @@ router.post("/register", async (req, res) => {
       email,
       github,
       linkedin,
-      about,
-      cv,
     });
     res.status(201).json(register);
   } catch (err) {

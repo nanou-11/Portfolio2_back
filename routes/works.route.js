@@ -31,6 +31,7 @@ router.post("/", async (req, res) => {
     screenshot2,
     screenshot3,
     date,
+    UserId,
   } = req.body;
   try {
     const project = await Work.create({
@@ -42,6 +43,7 @@ router.post("/", async (req, res) => {
       screenshot2,
       screenshot3,
       date,
+      UserId,
     });
     res.status(201).json(project);
   } catch (err) {
@@ -60,6 +62,7 @@ router.put("/:id", async (req, res) => {
     screenshot2,
     screenshot3,
     date,
+    UserId,
   } = req.body;
   try {
     await Work.update(
@@ -72,6 +75,7 @@ router.put("/:id", async (req, res) => {
         screenshot2,
         screenshot3,
         date,
+        UserId,
       },
       { where: { id } }
     );

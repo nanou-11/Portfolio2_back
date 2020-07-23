@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 
 const sequelize = require("./sequelize");
+require("./association");
 const auth = require("./routes/auth.route");
 const user = require("./routes/user.route");
 const works = require("./routes/works.route");
