@@ -34,20 +34,6 @@ sequelize
     return sequelize.authenticate();
   })
   .then(() => {
-    return Promise.all([
-      User.findCreateFind({
-        where: { email: process.env.EMAIL },
-        defaults: {
-          lastName: "Jouaret",
-          firstName: "Anaïs",
-          password: process.env.EMAILPASS,
-          github: "https://github.com/nanou-11",
-          linkedin: "https://www.linkedin.com/in/anais-jouaret/",
-        },
-      }),
-    ]);
-  })
-  .then(() => {
     app.listen(port, (err) => {
       if (err) {
         throw new Error("Something really bad happened ...");
