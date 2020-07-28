@@ -64,7 +64,6 @@ describe("WORK", () => {
           "url",
           "description",
           "tools",
-
           "screenshot1",
           "screenshot2",
           "screenshot3",
@@ -100,7 +99,6 @@ describe("WORK", () => {
           "url",
           "description",
           "tools",
-
           "screenshot1",
           "screenshot2",
           "screenshot3",
