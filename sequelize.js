@@ -13,6 +13,5 @@ if (process.env.DATABASE_URL) {
     password: DBPASS,
     database: DBNAME,
     dialect: DBDIALECT,
-    logging: false,
   });
 }
