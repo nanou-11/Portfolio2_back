@@ -28,37 +28,35 @@ app.get("/", (req, res) => {
   res.status(200).send("Bienvenue sur Mon Portfolio");
 });
 
-if (process.env.NODE_ENV !== "test") {
-  sequelize
-    .sync()
-    .then(() => {
-      return sequelize.authenticate();
-    })
-    .then(() => {
-      return Promise.all([
-        User.findCreateFind({
-          where: { email: process.env.EMAIL },
-          defaults: {
-            lastName: "Jouaret",
-            firstName: "Anaïs",
-            password: process.env.EMAILPASS,
-            github: "https://github.com/nanou-11",
-            linkedin: "https://www.linkedin.com/in/anais-jouaret/",
-          },
-        }),
-      ]);
-    })
-    .then(() => {
-      app.listen(port, (err) => {
-        if (err) {
-          throw new Error("Something really bad happened ...");
-        }
-        console.log(`Server is listening on ${port}`);
-      });
-    })
-    .catch((err) => {
-      console.log("unable to join database", err.message);
+sequelize
+  .sync()
+  .then(() => {
+    return sequelize.authenticate();
+  })
+  .then(() => {
+    return Promise.all([
+      User.findCreateFind({
+        where: { email: process.env.EMAIL },
+        defaults: {
+          lastName: "Jouaret",
+          firstName: "Anaïs",
+          password: process.env.EMAILPASS,
+          github: "https://github.com/nanou-11",
+          linkedin: "https://www.linkedin.com/in/anais-jouaret/",
+        },
+      }),
+    ]);
+  })
+  .then(() => {
+    app.listen(port, (err) => {
+      if (err) {
+        throw new Error("Something really bad happened ...");
+      }
+      console.log(`Server is listening on ${port}`);
     });
-}
+  })
+  .catch((err) => {
+    console.log("unable to join database", err.message);
+  });
 
 module.exports = app;
