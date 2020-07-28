@@ -8,7 +8,7 @@ if (process.env.DATABASE_URL) {
   });
 } else {
   module.exports = new Sequelize({
-    host: DBHOST || "localhost",
+    host: DBHOST || "0.0.0.0",
     username: DBUSER,
     password: DBPASS,
     database: DBNAME,
