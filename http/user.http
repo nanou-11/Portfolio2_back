@@ -6,7 +6,7 @@ POST http://localhost:4000/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "lastName" : "JOUARET",
+    "lastName" : "JOUARE",
     "firstName" : "Anaïs",
     "password" : "roxane23",
     "email" : "anais.jouaret@gmail.com",
@@ -22,3 +22,7 @@ Content-Type: application/json
     "email" : "anais.jouaret@gmail.com",
     "password" : "roxane23"
 }
+
+###
+DELETE http://localhost:4000/user/685cc979-e6bf-41f5-80ed-31087bec3f22 HTTP/1.1
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWNjOTc5LWU2YmYtNDFmNS04MGVkLTMxMDg3YmVjM2YyMiIsImVtYWlsIjoiYW5haXMuam91YXJldEBnbWFpbC5jb20iLCJpYXQiOjE1OTYwMTU4NjEsImV4cCI6MTU5NjEwMjI2MX0.FQdkvzlvZWPbWppPhjSOYYBO7ihwqixdE9Kut8tIEMQ
