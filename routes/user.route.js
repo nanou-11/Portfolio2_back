@@ -53,4 +53,16 @@ router.put("/:id", checkJWT, validator(userForPut, "body"), async (req, res) => 
   }
 });
 
+router.delete("/:id", checkJWT, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await User.destroy({
+      where: { id },
+    });
+    res.status(204).json({ message: "User is deleted." });
+  } catch (err) {
+    res.status(422).json(err);
+  }
+});
+
 module.exports = router;
