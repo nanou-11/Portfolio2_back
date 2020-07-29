@@ -13,7 +13,10 @@ router.post("/login", async (req, res) => {
         email,
       },
     });
-    if (password === user.dataValues.password) {
+
+    const isPasswordValid = user.validPassword(password);
+
+    if (user && isPasswordValid) {
       const payload = {
         id: user.dataValues.id,
         email: user.dataValues.email,
@@ -21,7 +24,6 @@ router.post("/login", async (req, res) => {
       const token = jwt.sign(payload, SECRET, {
         expiresIn: "24h",
       });
-      delete user.dataValues.password;
       res.status(200).json({ token, user });
     } else {
       res.status(400).json({ message: "Wrong credentials" });
