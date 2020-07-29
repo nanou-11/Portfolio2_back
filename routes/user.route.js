@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const checkJWT = require("../middleware/checkJWT")
 const { validator, userForPut } = require("../middleware/validator");
 
 
@@ -23,7 +24,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id",validator(userForPut, "body"), async (req, res) => {
+router.put("/:id", checkJWT, validator(userForPut, "body"), async (req, res) => {
   const { id } = req.params;
   const {
     lastName,

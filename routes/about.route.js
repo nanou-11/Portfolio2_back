@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const About = require("../models/About");
+const checkJWT = require("../middleware/checkJWT")
 const { validator, aboutForPut } = require("../middleware/validator");
 
 
@@ -23,7 +24,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", checkJWT, async (req, res) => {
   const { about, cv, UserId } = req.body;
   try {
     const aboutt = await About.create({
@@ -37,7 +38,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", validator(aboutForPut, "body"),async (req, res) => {
+router.put("/:id", checkJWT, validator(aboutForPut, "body"), async (req, res) => {
   const { id } = req.params;
   const { about, cv } = req.body;
   try {

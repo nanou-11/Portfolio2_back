@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Work = require("../models/Work");
+const checkJWT = require("../middleware/checkJWT");
 const { validator, worksForPut } = require("../middleware/validator");
-
 
 router.get("/", async (req, res) => {
   try {
@@ -23,7 +23,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", checkJWT, async (req, res) => {
   const {
     label,
     url,
@@ -53,42 +53,47 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id",validator(worksForPut, "body"), async (req, res) => {
-  const { id } = req.params;
-  const {
-    label,
-    url,
-    description,
-    tools,
-    screenshot1,
-    screenshot2,
-    screenshot3,
-    date,
-    UserId,
-  } = req.body;
-  try {
-    await Work.update(
-      {
-        label,
-        url,
-        description,
-        tools,
-        screenshot1,
-        screenshot2,
-        screenshot3,
-        date,
-        UserId,
-      },
-      { where: { id } }
-    );
-    const project = await Work.findByPk(id);
-    res.status(202).json(project);
-  } catch (err) {
-    res.status(422).json(err);
+router.put(
+  "/:id",
+  checkJWT,
+  validator(worksForPut, "body"),
+  async (req, res) => {
+    const { id } = req.params;
+    const {
+      label,
+      url,
+      description,
+      tools,
+      screenshot1,
+      screenshot2,
+      screenshot3,
+      date,
+      UserId,
+    } = req.body;
+    try {
+      await Work.update(
+        {
+          label,
+          url,
+          description,
+          tools,
+          screenshot1,
+          screenshot2,
+          screenshot3,
+          date,
+          UserId,
+        },
+        { where: { id } }
+      );
+      const project = await Work.findByPk(id);
+      res.status(202).json(project);
+    } catch (err) {
+      res.status(422).json(err);
+    }
   }
-});
+);
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", checkJWT, async (req, res) => {
   try {
     const { id } = req.params;
     await Work.destroy({ where: { id } });

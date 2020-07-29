@@ -14,7 +14,15 @@ router.post("/login", async (req, res) => {
       },
     });
     if (password === user.dataValues.password) {
-      res.status(200).json(user);
+      const payload = {
+        id: user.dataValues.id,
+        email: user.dataValues.email,
+      };
+      const token = jwt.sign(payload, SECRET, {
+        expiresIn: "24h",
+      });
+      delete user.dataValues.password;
+      res.status(200).json({ token, user });
     } else {
       res.status(400).json({ message: "Wrong credentials" });
     }
@@ -24,14 +32,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const {
-    lastName,
-    firstName,
-    password,
-    email,
-    github,
-    linkedin,
-  } = req.body;
+  const { lastName, firstName, password, email, github, linkedin } = req.body;
   try {
     const register = await User.create({
       lastName,
